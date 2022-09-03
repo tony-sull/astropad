@@ -142,5 +142,6 @@
 }
 
 :where(a) {
+  color: var(--color-secondary);
   font-size: inherit;
 }
