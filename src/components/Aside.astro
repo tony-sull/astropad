@@ -1,0 +1,46 @@
+---
+export interface Props extends astroHTML.JSX.HTMLAttributes {
+  theme?: "blue" | "pink" | "green";
+}
+
+const { theme, ...attrs } = Astro.props;
+---
+
+<aside class:list={[theme]} {...attrs}>
+  <slot />
+</aside>
+
+<style>
+  aside {
+    @apply px-8 py-4 mb-4 rounded-lg bg-yellow-50;
+  }
+  aside,
+  aside strong,
+  aside em {
+    @apply dark:bg-gray-400 dark:text-gray-900;
+  }
+  aside.blue {
+    @apply px-8 py-4 mb-4 rounded-lg bg-blue-50;
+  }
+  aside.blue,
+  aside.blue strong,
+  aside.blue em {
+    @apply dark:text-gray-200 dark:bg-blue-900;
+  }
+  aside.pink {
+    @apply px-8 py-4 mb-4 rounded-lg bg-pink-50;
+  }
+  aside.pink,
+  aside.pink strong,
+  aside.pink em {
+    @apply dark:text-gray-200 dark:bg-pink-900;
+  }
+  aside.green {
+    @apply px-8 py-4 mb-4 rounded-lg bg-green-50;
+  }
+  aside.green,
+  aside.green strong,
+  aside.green em {
+    @apply dark:text-gray-200 dark:bg-green-900;
+  }
+</style>
