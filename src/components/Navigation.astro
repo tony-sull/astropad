@@ -1,0 +1,56 @@
+---
+import type { MDXInstance } from 'astro'
+import NavigationItem from './NavigationItem.astro'
+import type { SEO } from '../data/seo.js'
+
+export interface Page extends SEO {
+    navigation?: {
+        key: string
+        parent?: string
+        order: number
+    }
+}
+
+export interface Entry {
+    title: string
+    key: string
+    url: string
+    order: number
+    parentKey?: string
+    children?: Entry[]
+}
+
+const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')    
+
+function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
+    let pages: Entry[] = []
+
+    for (const entry of nodes) {
+        if (entry.frontmatter.navigation) {
+            const nav = entry.frontmatter.navigation
+            if (!key && !nav.parent || nav.parent === key) {
+                pages.push({
+                    ...nav,
+                    title: entry.frontmatter.title,
+                    url: entry.url!,
+                })
+            }
+        }
+    }
+
+    return pages.sort((a, b) => a.order - b.order)
+        .map(entry => {
+            if (entry.key) {
+                entry.children = findNavigationEntries(nodes, entry.key)
+            }
+
+            return entry
+        })
+}
+
+const entries = findNavigationEntries(allPages)
+---
+
+<ul>
+    {entries.map(entry => (<NavigationItem {...entry} />))}
+</ul>

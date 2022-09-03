@@ -1,0 +1,16 @@
+---
+import type { Entry } from './Navigation.astro'
+
+export interface Props extends Entry { }
+
+const { title, url, children = [] } = Astro.props
+---
+
+<li>
+    <a href={url}>{title}</a>
+    {(children.length > 0) && (
+        <ul>
+            {children.map((child) => (<Astro.self {...child} />))}    
+        </ul>
+    )}
+</li>
