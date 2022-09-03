@@ -20,7 +20,14 @@ export interface Entry {
     children?: Entry[]
 }
 
-const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')    
+function getParentKey(url: string) {
+    const segments = url.split('/')
+
+    if (segments.length === 1) return undefined
+    return segments.slice(0, segments.length -1 ).join('/')
+}
+
+const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
 
 function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
     let pages: Entry[] = []
@@ -28,7 +35,8 @@ function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
     for (const entry of nodes) {
         if (entry.frontmatter.navigation) {
             const nav = entry.frontmatter.navigation
-            if (!key && !nav.parent || nav.parent === key) {
+            const parent = getParentKey(entry.url!)
+            if (!key && !parent || parent === key) {
                 pages.push({
                     ...nav,
                     title: entry.frontmatter.title,
@@ -40,8 +48,8 @@ function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
 
     return pages.sort((a, b) => a.order - b.order)
         .map(entry => {
-            if (entry.key) {
-                entry.children = findNavigationEntries(nodes, entry.key)
+            if (entry.url) {
+                entry.children = findNavigationEntries(nodes, entry.url)
             }
 
             return entry
