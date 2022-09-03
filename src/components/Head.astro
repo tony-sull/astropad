@@ -44,3 +44,14 @@ const robots = [
 {twitter?.creator && (
     <meta name="twitter:creator" content={twitter.creator} />
 )}
+
+<!-- inlining the theme check in the head to make sure the theme is set before the page renders -->
+<script is:inline>
+    if (localStorage.theme === 'dark') {
+        document.documentElement.dataset.theme = 'dark'
+    } else if (localStorage.theme === 'light') {
+        document.documentElement.dataset.theme = 'light'
+    } else {
+        document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+</script>

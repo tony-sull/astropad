@@ -4,23 +4,22 @@ import { Icon } from 'astro-icon'
 export interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
     name: string
     label: string
+    lg?: boolean
     href?: string
 }
 
-const { name, label, href, ...attrs } = Astro.props
-
-console.log(Astro.props)
+const { name, label, lg = false, href, ...attrs } = Astro.props
 ---
 
 {!!href ? (
     <a href={href} {...attrs}>
         <span class='sr-only'>{label}</span>
-        <Icon name={name} size={24} />
+        <Icon name={name} size={lg ? 28 : 24} />
     </a>
 ) : (
     <button {...attrs}>
         <span class='sr-only'>{label}</span>
-        <Icon name={name} size={24} />
+        <Icon name={name} size={lg ? 28 : 24} />
     </button>
 )}
 

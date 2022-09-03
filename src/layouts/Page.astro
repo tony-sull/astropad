@@ -38,7 +38,7 @@ const { ...layout } = Astro.props
 
     nav {
         background-color: var(--color-neutral-100);
-        padding: var(--header-height) var(--gap-xl) 0;
+        padding: 0 var(--gap-xl);
     }
 
     main {
@@ -50,5 +50,6 @@ const { ...layout } = Astro.props
     [role=document] {
         max-width: var(--measure-prose);
         margin: 0 auto;
+        padding-top: var(--gap-lg);
     }
 </style>
