@@ -6,5 +6,10 @@ import image from "@astrojs/image";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://pad.astro.build',
-  integrations: [mdx(), sitemap(), image()]
+  integrations: [mdx(), sitemap(), image()],
+  vite: {
+    ssr: {
+      external: ["svgo"],
+    },
+  },
 });

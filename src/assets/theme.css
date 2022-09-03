@@ -1,0 +1,90 @@
+:where(:root) {
+	/* Color variables */
+	--color-primary: #325476;
+	--color-secondary: #0b70ba;
+	--color-neutral-50: #f9fafb;
+	--color-neutral-100: #f3f4f6;
+	--color-neutral-200: #e5e7eb;
+	--color-neutral-300: #d1d5db;
+	--color-neutral-400: #9ca3af;
+	--color-neutral-500: #6b7280;
+	--color-neutral-600: #4b5563;
+	--color-neutral-700: #374151;
+	--color-neutral-800: #1f2937;
+	--color-neutral-900: #111827;
+
+    --ratio: 1.25;
+
+    --gap-4xs: calc(var(--gap-3xs) / var(--ratio));
+    --gap-3xs: calc(var(--gap-2xs) / var(--ratio));
+    --gap-2xs: calc(var(--gap-xs) / var(--ratio));
+    --gap-xs: calc(var(--gap-sm) / var(--ratio));
+    --gap-sm: calc(var(--gap) / var(--ratio));
+    --gap: 1rem;
+    --gap-lg: calc(var(--gap) * var(--ratio));
+    --gap-xl: calc(var(--gap-lg) * var(--ratio));
+    --gap-2xl: calc(var(--gap-xl) * var(--ratio));
+    --gap-3xl: calc(var(--gap-2xl) * var(--ratio));
+    --gap-4xl: calc(var(--gap-3xl) * var(--ratio));
+
+    --text-sm: calc(var(--text) / var(--ratio));
+    --text: 1rem;
+    --text-lg: calc(var(--text) * var(--ratio));
+    --text-xl: calc(var(--text-lg) * var(--ratio));
+    --text-2xl: calc(var(--text-xl) * var(--ratio));
+    --text-3xl: calc(var(--text-2xl) * var(--ratio));
+    --text-4xl: calc(var(--text-3xl) * var(--ratio));
+
+    --border-thin: .125rem;
+    --border-medium: calc(var(--border-thin) * var(--ratio) * var(--ratio));
+    --border-thick: calc(var(--border-medium) * var(--ratio) * var(--ratio));
+
+    --rounded-sm: calc(var(--rounded) / var(--ratio));
+    --rounded: .5rem;
+    --rounded-lg: calc(var(--rounded) * var(--ratio));
+}
+
+/* dark theme via HTML dataset */
+[data-theme='dark'] {
+	--color-primary: #002244;
+	--color-secondary: #3ea8f4;
+	--color-neutral-50: #111827;
+	--color-neutral-100: #1f2937;
+	--color-neutral-200: #374151;
+	--color-neutral-300: #4b5563;
+	--color-neutral-400: #6b7280;
+	--color-neutral-500: #9ca3af;
+	--color-neutral-600: #d1d5db;
+	--color-neutral-700: #e5e7eb;
+	--color-neutral-800: #f3f4f6;
+	--color-neutral-900: #f9fafb;
+}
+
+/* dark theme via native prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		--color-primary: #002244;
+		--color-secondary: #3ea8f4;
+		--color-neutral-50: #111827;
+		--color-neutral-100: #1f2937;
+		--color-neutral-200: #374151;
+		--color-neutral-300: #4b5563;
+		--color-neutral-400: #6b7280;
+		--color-neutral-500: #9ca3af;
+		--color-neutral-600: #d1d5db;
+		--color-neutral-700: #e5e7eb;
+		--color-neutral-800: #f3f4f6;
+    }
+}
+
+:where(.sr-only) {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip-path: inset(50%); /* 1 */
+	white-space: nowrap; /* 2 */
+}

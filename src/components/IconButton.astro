@@ -1,0 +1,40 @@
+---
+import { Icon } from 'astro-icon'
+
+export interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
+    name: string
+    label: string
+    href?: string
+}
+
+const { name, label, href, ...attrs } = Astro.props
+---
+
+{href ? (
+    <a href={href} {...attrs}>
+        <span class='sr-only'>{label}</span>
+        <Icon name={name} size={24} />
+    </a>
+) : (
+    <button {...attrs}>
+        <span class='sr-only'>{label}</span>
+        <Icon name={name} size={24} />
+    </button>
+)}
+
+
+<style>
+    button, a {
+        min-height: 48px;
+        min-width: 48px;
+        border: none;
+        border-radius: var(--rounded);
+        background: transparent;
+        transition: color 100ms ease;
+        color: inherit;
+    }
+
+    :is(a, button):hover, :is(a, button):focus {
+        color: var(--color-secondary);
+    }
+</style>

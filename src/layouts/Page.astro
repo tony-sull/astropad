@@ -2,6 +2,7 @@
 import Layout from './Base.astro'
 import type { Props as LayoutProps } from './Base.astro'
 import Navigation from '../components/Navigation.astro'
+import Header from '../components/Header.astro';
 
 export interface Props extends LayoutProps { }
 
@@ -10,6 +11,8 @@ const { ...layout } = Astro.props
 
 <Layout {...layout}>
     <main>
+        <Header />
+
         <Navigation />
 
         <slot />

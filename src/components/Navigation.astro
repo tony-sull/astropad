@@ -5,15 +5,12 @@ import type { SEO } from '../data/seo.js'
 
 export interface Page extends SEO {
     navigation?: {
-        key: string
-        parent?: string
         order: number
     }
 }
 
 export interface Entry {
     title: string
-    key: string
     url: string
     order: number
     parentKey?: string
