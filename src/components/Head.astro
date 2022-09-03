@@ -1,0 +1,46 @@
+---
+import seo from '../data/seo.js';
+import site from '../data/site.js';
+import type { SEO } from '../data/seo.js';
+
+export interface Props extends Partial<SEO> { }
+
+const {
+    title = seo.title,
+    description = seo.description,
+    image = seo.image,
+    canonicalURL = new URL(Astro.url.pathname, Astro.site),
+    twitter,
+    noindex = false,
+    nofollow = false
+} = Astro.props
+
+const robots = [
+    noindex ? 'noindex' : 'index',
+    nofollow ? 'nofollow' : 'follow'
+].join(', ')
+---
+
+<meta charset="utf-8" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonicalURL} />
+<meta name="robots" content={robots}>
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content={site.name} />
+
+{twitter?.card && (
+    <meta name="twitter:card" content={twitter.card} />
+)}
+{twitter?.site && (
+    <meta name="twitter:site" content={twitter.site} />
+)}
+{twitter?.creator && (
+    <meta name="twitter:creator" content={twitter.creator} />
+)}

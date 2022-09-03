@@ -1,0 +1,12 @@
+---
+import Layout from './Base.astro'
+import type { Props as LayoutProps } from './Base.astro'
+
+export interface Props extends LayoutProps { }
+
+const { ...layout } = Astro.props
+---
+
+<Layout {...layout}>
+    <slot />
+</Layout>
