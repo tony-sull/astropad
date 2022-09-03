@@ -1,4 +1,8 @@
 :where(:root) {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
   /* Color variables */
   --color-primary: #325476;
   --color-secondary: #0b70ba;
@@ -93,9 +97,11 @@
 
 :where(*) {
   box-sizing: border-box;
+  /**
   word-wrap: break-word;
   white-space: normal;
   word-break: break-word;
+  */
 }
 
 :where(html, body, div, header, nav, main, footer) {
@@ -144,4 +150,14 @@
 :where(a) {
   color: var(--color-secondary);
   font-size: inherit;
+}
+
+:where(code, pre) {
+  font-family: var(--font-mono);
+}
+
+:where(.astro-code) {
+  padding: var(--gap) var(--gap-lg);
+  border-radius: var(--rounded);
+  line-height: 1.5;
 }

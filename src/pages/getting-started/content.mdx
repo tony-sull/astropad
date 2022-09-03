@@ -17,7 +17,7 @@ All of your pages and images are stored in a top-level directory called **conten
 
 Frontmatter is a complicated sounding word for a simple concept. Frontmatter is simply a few lines of configuration that live at the top your markdown files. This configuration tells your page what to do and how to behave. The minimal lines of frontmatter for a spacebook page live at the top of the file in between a block of three dashes like so:
 
-```
+```md
 ---
 title: Hello world 
 date: 2020-11-20
@@ -39,7 +39,7 @@ eleventyNavigation:
 
 There are four additional frontmatter items you can add that will affect how your page behaves, including the ability to create a hierarchy of parent and child pages:
 
-```
+```md
 ---
 title: About us 
 metaDescription: An override for your page's description metatag 👈 
@@ -51,7 +51,7 @@ eleventyNavigation:
   key: About us 
   parent: Home 👈
   title: A custom menu title 👈
-  
+
 ---
 
 ```
@@ -68,7 +68,7 @@ eleventyNavigation:
 
 Once you understand frontmatter, you can begin adding or editing your content using simple markdown. Anything that appears directly below your frontmatter will appear as the main body of your page, like so:
 
-```
+```astro
 ---
 title: About us 
 date: 2020-11-20
@@ -77,6 +77,7 @@ eleventyNavigation:
   order: 10
   key: About us 
 ---
+
 This is my content! 👈
 
 ```
