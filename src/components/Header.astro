@@ -13,13 +13,20 @@ import site from '../data/site.js'
 
     <div>
         {site.githubUrl && (
-            <IconButton name='cib:github' label='View Astropad on GitHub' />
+            <IconButton name='cib:github' label='View Astropad on GitHub' href={site.githubUrl} />
         )}
     </div>
 </header>
 
+<style is:global>
+    :root {
+        --header-height: 48px;
+    }
+</style>
+
 <style>
     header {
+        height: var(--header-height);
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
@@ -36,8 +43,13 @@ import site from '../data/site.js'
         display: flex;
         gap: var(--gap);
     }
+
+    div:first-of-type {
+        margin-left: -12px;
+    }
     
     div:last-of-type {
+        margin-right: -12px;
         justify-content: flex-end;
     }
 </style>

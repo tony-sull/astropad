@@ -1,8 +1,9 @@
 ---
 import Layout from './Base.astro'
 import type { Props as LayoutProps } from './Base.astro'
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
-import Header from '../components/Header.astro';
 
 export interface Props extends LayoutProps { }
 
@@ -10,11 +11,44 @@ const { ...layout } = Astro.props
 ---
 
 <Layout {...layout}>
+    <nav id="sidebar">
+        <Navigation />
+    </nav>
+
     <main>
         <Header />
 
-        <Navigation />
+        <div role='document'>
+            <slot />
 
-        <slot />
+            <Footer />
+        </div>
     </main>
 </Layout>
+
+<style is:global>
+    body {
+        display: flex;
+        flex-direction: row;
+    }
+
+    nav, main {
+        overflow-block: auto;
+    }
+
+    nav {
+        background-color: var(--color-neutral-100);
+        padding: var(--header-height) var(--gap-xl) 0;
+    }
+
+    main {
+        flex: 1;
+        padding: 0 var(--gap-2xl);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    [role=document] {
+        max-width: var(--measure-prose);
+        margin: 0 auto;
+    }
+</style>

@@ -3,6 +3,8 @@ import type { MDXInstance } from 'astro'
 import NavigationItem from './NavigationItem.astro'
 import type { SEO } from '../data/seo.js'
 
+export interface Props extends astroHTML.JSX.HTMLAttributes { }
+
 export interface Page extends SEO {
     navigation?: {
         order: number
@@ -23,8 +25,6 @@ function getParentKey(url: string) {
     if (segments.length === 1) return undefined
     return segments.slice(0, segments.length -1 ).join('/')
 }
-
-const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
 
 function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
     let pages: Entry[] = []
@@ -53,9 +53,36 @@ function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
         })
 }
 
+const { ...attrs } = Astro.props
+
+const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
 const entries = findNavigationEntries(allPages)
 ---
 
-<ul>
+<ol>
     {entries.map(entry => (<NavigationItem {...entry} />))}
-</ul>
+</ol>
+
+<style is:global>
+    ol {
+        counter-reset: section;
+    }
+
+    ol li {
+        counter-increment: section;
+    }
+
+    ol li::marker {
+        content: counters(section, '.') '. ';
+        font-weight: 600;
+    }
+</style>
+
+<style>
+    ol {
+        padding-inline-start: 2ch;
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--gap);
+    }
+</style>
