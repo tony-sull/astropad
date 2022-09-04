@@ -27,6 +27,11 @@ const { ...layout } = Astro.props.frontmatter
   </main>
 </Layout>
 
+<script>
+  import requestIdleCallback from '../utils/requestIdleCallback.js'
+  requestIdleCallback(() => document.documentElement.classList.add('animate'))
+</script>
+
 <style is:global>
   :root {
     --sidebar-width: 35ch;
@@ -53,8 +58,6 @@ const { ...layout } = Astro.props.frontmatter
     top: 0;
     bottom: 0;
     left: 0;
-    will-change: transform;
-    transition: transform var(--sidebar-duration) ease;
   }
 
   main {
@@ -62,11 +65,19 @@ const { ...layout } = Astro.props.frontmatter
     color: inherit;
     flex: 1;
     padding: 0 var(--gap-2xl);
-    margin-inline-start: var(--sidebar-width);
     z-index: 1;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    will-change: margin-inline-start;
-    transition: margin var(--sidebar-duration) ease;
+    transform: translate3d(var(--sidebar-width), 0, 0);
+  }
+
+  .animate nav {
+    will-change: transform;
+    transition: transform var(--sidebar-duration) ease;
+  }
+
+  .animate main {
+    will-change: transform;
+    transition: transform var(--sidebar-duration) ease;
   }
 
   [role='document'] {
@@ -75,17 +86,33 @@ const { ...layout } = Astro.props.frontmatter
     padding-top: var(--gap-lg);
   }
 
-  :root[data-menu-open="false"] nav {
+  :root[data-menu-open="false"] nav, :root:not([data-menu-open]) nav {
     transform: translate3d(-50%, 0, 0);
   }
 
-  :root[data-menu-open="false"] main {
-    margin-inline-start: 0;
+  :root[data-menu-open="false"] main, :root:not([data-menu-open]) main {
+    transform: translate3d(0, 0, 0);
   }
 
   @media (prefers-reduced-motion: reduce) {
     :root {
       --sidebar-duration: 0;
+    }
+  }
+
+  @media (min-width: 640px) {
+    main {
+      margin-inline-start: var(--sidebar-width);
+      will-change: margin-inline-start;
+      transform: none;
+    }
+
+    .animate main {
+      transition: margin var(--sidebar-duration) ease;
+    }
+
+    :root[data-menu-open="false"] main {
+      margin-inline-start: 0;
     }
   }
 </style>

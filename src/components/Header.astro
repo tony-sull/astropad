@@ -8,12 +8,12 @@ import site from '../data/site.js'
 <header>
   <div>
     <MenuToggle />
+    <IconButton name="heroicons-solid:search" label="Search" />
   </div>
 
   <a href="/">{site.name}</a>
 
   <div>
-    <IconButton name="heroicons-solid:search" label="Search" />
     <ThemeToggle />
     {site.githubUrl && <IconButton name="cib:github" label="View Astropad on GitHub" href={site.githubUrl} />}
   </div>
@@ -35,7 +35,6 @@ import site from '../data/site.js'
 
   div {
     display: flex;
-    gap: var(--gap);
   }
 
   div:first-of-type {

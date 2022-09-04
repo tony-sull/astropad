@@ -47,4 +47,6 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
       ? 'dark'
       : 'light'
   }
+
+  document.documentElement.dataset.menuOpen = window.matchMedia('(min-width: 640px)').matches
 </script>
