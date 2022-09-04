@@ -28,6 +28,11 @@ const { ...layout } = Astro.props.frontmatter
 </Layout>
 
 <style is:global>
+  :root {
+    --sidebar-width: 35ch;
+    --sidebar-duration: 200ms;
+  }
+
   body {
     display: flex;
     flex-direction: row;
@@ -39,19 +44,48 @@ const { ...layout } = Astro.props.frontmatter
   }
 
   nav {
+    display: flex;
+    justify-content: center;
+    width: var(--sidebar-width);
     background-color: var(--color-neutral-100);
     padding: 0 var(--gap-xl);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    will-change: transform;
+    transition: transform var(--sidebar-duration) ease;
   }
 
   main {
+    background-color: inherit;
+    color: inherit;
     flex: 1;
     padding: 0 var(--gap-2xl);
+    margin-inline-start: var(--sidebar-width);
+    z-index: 1;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    will-change: margin-inline-start;
+    transition: margin var(--sidebar-duration) ease;
   }
 
   [role='document'] {
     max-width: var(--measure-prose);
     margin: 0 auto;
     padding-top: var(--gap-lg);
+  }
+
+  :root[data-menu-open="false"] nav {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  :root[data-menu-open="false"] main {
+    margin-inline-start: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --sidebar-duration: 0;
+    }
   }
 </style>

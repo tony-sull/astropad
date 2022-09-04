@@ -1,0 +1,50 @@
+---
+import IconButton from './IconButton.astro'
+---
+
+<menu-toggle>
+  <IconButton name="heroicons-solid:menu" label="Toggle navigation menu" />
+</menu-toggle>
+
+<style is:global>
+  :root:not([data-menu-open]) menu-toggle {
+    display: none;
+  }
+</style>
+
+<script>
+  class MenuToggle extends HTMLElement {
+    #onClick = this.toggleMenu.bind(this)
+
+    connectedCallback() {
+      if (this.button) {
+        this.button.addEventListener('click', this.#onClick, true)
+        this.menuOpen = true
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.button) {
+        this.button.removeEventListener('click', this.#onClick)
+      }
+    }
+
+    get button() {
+      return this.querySelector<HTMLButtonElement>('button')
+    }
+
+    get menuOpen() {
+        return document.documentElement.dataset.menuOpen === 'true'
+    }
+
+    set menuOpen(value: boolean) {
+        document.documentElement.dataset.menuOpen = value.toString()
+    }
+
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen
+    }
+  }
+
+  customElements.define('menu-toggle', MenuToggle)
+</script>

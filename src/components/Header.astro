@@ -1,18 +1,19 @@
 ---
 import IconButton from './IconButton.astro'
+import MenuToggle from './MenuToggle.astro'
 import ThemeToggle from './ThemeToggle.astro'
 import site from '../data/site.js'
 ---
 
 <header>
   <div>
-    <IconButton name="heroicons-solid:menu" label="Toggle navigation menu" />
-    <IconButton name="heroicons-solid:search" label="Search" />
+    <MenuToggle />
   </div>
 
   <a href="/">{site.name}</a>
 
   <div>
+    <IconButton name="heroicons-solid:search" label="Search" />
     <ThemeToggle />
     {site.githubUrl && <IconButton name="cib:github" label="View Astropad on GitHub" href={site.githubUrl} />}
   </div>

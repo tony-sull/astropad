@@ -23,12 +23,22 @@ import IconButton from './IconButton.astro'
 
 <script>
   class ThemeToggle extends HTMLElement {
+    #onClick = this.toggleTheme.bind(this)
+
     connectedCallback() {
-      this.addEventListener('click', this.toggleTheme.bind(this), true)
+      if (this.button) {
+        this.button.addEventListener('click', this.#onClick, true)
+      }
     }
 
     disconnectedCallback() {
-      this.removeEventListener('click', this.toggleTheme.bind(this))
+      if (this.button) {
+        this.button.removeEventListener('click', this.#onClick)
+      }
+    }
+
+    get button() {
+      return this.querySelector<HTMLButtonElement>('button')
     }
 
     toggleTheme() {
