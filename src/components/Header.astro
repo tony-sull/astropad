@@ -5,46 +5,44 @@ import site from '../data/site.js'
 ---
 
 <header>
-    <div>
-        <IconButton name='heroicons-solid:menu' label='Toggle navigation menu' />
-        <IconButton name='heroicons-solid:search' label='Search' />
-    </div>
+  <div>
+    <IconButton name="heroicons-solid:menu" label="Toggle navigation menu" />
+    <IconButton name="heroicons-solid:search" label="Search" />
+  </div>
 
-    <a href='/'>{site.name}</a>
+  <a href="/">{site.name}</a>
 
-    <div>
-        <ThemeToggle />
-        {site.githubUrl && (
-            <IconButton name='cib:github' label='View Astropad on GitHub' href={site.githubUrl} />
-        )}
-    </div>
+  <div>
+    <ThemeToggle />
+    {site.githubUrl && <IconButton name="cib:github" label="View Astropad on GitHub" href={site.githubUrl} />}
+  </div>
 </header>
 
 <style>
-    header {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        color: var(--color-neutral-600);
-    }
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    color: var(--color-neutral-600);
+  }
 
-    a {
-        text-decoration: none;
-        font-size: var(--text-xl);
-        color: inherit;
-    }
+  a {
+    text-decoration: none;
+    font-size: var(--text-xl);
+    color: inherit;
+  }
 
-    div {
-        display: flex;
-        gap: var(--gap);
-    }
+  div {
+    display: flex;
+    gap: var(--gap);
+  }
 
-    div:first-of-type {
-        margin-left: -12px;
-    }
-    
-    div:last-of-type {
-        margin-right: -12px;
-        justify-content: flex-end;
-    }
+  div:first-of-type {
+    margin-left: -12px;
+  }
+
+  div:last-of-type {
+    margin-right: -12px;
+    justify-content: flex-end;
+  }
 </style>

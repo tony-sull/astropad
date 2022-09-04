@@ -1,9 +1,9 @@
 ---
 export interface Props extends astroHTML.JSX.HTMLAttributes {
-  theme?: "blue" | "pink" | "green";
+  theme?: 'blue' | 'pink' | 'green'
 }
 
-const { theme, ...attrs } = Astro.props;
+const { theme, ...attrs } = Astro.props
 ---
 
 <aside class:list={[theme]} {...attrs}>
@@ -17,36 +17,28 @@ const { theme, ...attrs } = Astro.props;
     border-radius: var(--rounded);
     background-color: rgb(255 237 213);
   }
-  :global([data-theme=dark]) :is(aside,
-  aside strong,
-  aside em) {
+  :global([data-theme='dark']) :is(aside, aside strong, aside em) {
     background-color: var(--color-neutral-400);
     color: var(--color-neutral-900);
   }
   aside.blue {
     background-color: rgb(219 234 254);
   }
-  :global([data-theme=dark]) :is(aside.blue,
-  aside.blue strong,
-  aside.blue em) {
+  :global([data-theme='dark']) :is(aside.blue, aside.blue strong, aside.blue em) {
     background-color: rgb(30 58 138);
     color: var(--color-neutral-200);
   }
   aside.pink {
     background-color: rgb(252 231 243);
   }
-  :global([data-theme=dark]) :is(aside.pink,
-  aside.pink strong,
-  aside.pink em) {
+  :global([data-theme='dark']) :is(aside.pink, aside.pink strong, aside.pink em) {
     background-color: rgb(131 24 67);
     color: var(--color-neutral-200);
   }
   aside.green {
     background-color: rgb(220 252 231);
   }
-  :global([data-theme=dark]) :is(aside.green,
-  aside.green strong,
-  aside.green em) {
+  :global([data-theme='dark']) :is(aside.green, aside.green strong, aside.green em) {
     background-color: rgb(20 83 45);
     color: var(--color-neutral-200);
   }

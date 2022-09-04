@@ -1,24 +1,21 @@
 ---
-import seo from '../data/seo.js';
-import site from '../data/site.js';
-import type { SEO } from '../data/seo.js';
+import seo from '../data/seo.js'
+import site from '../data/site.js'
+import type { SEO } from '../data/seo.js'
 
-export interface Props extends Partial<SEO> { }
+export interface Props extends Partial<SEO> {}
 
 const {
-    title = seo.title,
-    description = seo.description,
-    image = seo.image,
-    canonicalURL = new URL(Astro.url.pathname, Astro.site),
-    twitter,
-    noindex = false,
-    nofollow = false
+  title = seo.title,
+  description = seo.description,
+  image = seo.image,
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  twitter,
+  noindex = false,
+  nofollow = false,
 } = Astro.props
 
-const robots = [
-    noindex ? 'noindex' : 'index',
-    nofollow ? 'nofollow' : 'follow'
-].join(', ')
+const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(', ')
 ---
 
 <meta charset="utf-8" />
@@ -26,32 +23,28 @@ const robots = [
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
-<meta name="description" content={description}>
+<meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
-<meta name="robots" content={robots}>
+<meta name="robots" content={robots} />
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={image} />
 <meta property="og:site_name" content={site.name} />
 
-{twitter?.card && (
-    <meta name="twitter:card" content={twitter.card} />
-)}
-{twitter?.site && (
-    <meta name="twitter:site" content={twitter.site} />
-)}
-{twitter?.creator && (
-    <meta name="twitter:creator" content={twitter.creator} />
-)}
+{twitter?.card && <meta name="twitter:card" content={twitter.card} />}
+{twitter?.site && <meta name="twitter:site" content={twitter.site} />}
+{twitter?.creator && <meta name="twitter:creator" content={twitter.creator} />}
 
 <!-- inlining the theme check in the head to make sure the theme is set before the page renders -->
 <script is:inline>
-    if (localStorage.theme === 'dark') {
-        document.documentElement.dataset.theme = 'dark'
-    } else if (localStorage.theme === 'light') {
-        document.documentElement.dataset.theme = 'light'
-    } else {
-        document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
+  if (localStorage.theme === 'dark') {
+    document.documentElement.dataset.theme = 'dark'
+  } else if (localStorage.theme === 'light') {
+    document.documentElement.dataset.theme = 'light'
+  } else {
+    document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  }
 </script>

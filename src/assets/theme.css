@@ -1,7 +1,8 @@
 :where(:root) {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* Color variables */
   --color-primary: #325476;
@@ -51,7 +52,7 @@
 }
 
 /* dark theme via HTML dataset */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-primary: #002244;
   --color-secondary: #3ea8f4;
   --color-neutral-50: #111827;
@@ -129,11 +130,11 @@
 }
 
 :where(h1, h2, h3, h4, h5) {
-	line-height: 1.5;
+  line-height: 1.5;
 }
 
 :where(h1, h2, h3, h4, h5):first-child {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 :where(body, html) {

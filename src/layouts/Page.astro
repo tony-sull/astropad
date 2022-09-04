@@ -5,51 +5,52 @@ import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
 
-export interface Props extends LayoutProps { }
+export interface Props extends LayoutProps {}
 
 const { ...layout } = Astro.props
 ---
 
 <Layout {...layout}>
-    <nav id="sidebar">
-        <Navigation />
-    </nav>
+  <nav id="sidebar">
+    <Navigation />
+  </nav>
 
-    <main>
-        <Header />
+  <main>
+    <Header />
 
-        <div role='document'>
-            <slot />
+    <div role="document">
+      <slot />
 
-            <Footer />
-        </div>
-    </main>
+      <Footer />
+    </div>
+  </main>
 </Layout>
 
 <style is:global>
-    body {
-        display: flex;
-        flex-direction: row;
-    }
+  body {
+    display: flex;
+    flex-direction: row;
+  }
 
-    nav, main {
-        overflow-block: auto;
-    }
+  nav,
+  main {
+    overflow-block: auto;
+  }
 
-    nav {
-        background-color: var(--color-neutral-100);
-        padding: 0 var(--gap-xl);
-    }
+  nav {
+    background-color: var(--color-neutral-100);
+    padding: 0 var(--gap-xl);
+  }
 
-    main {
-        flex: 1;
-        padding: 0 var(--gap-2xl);
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    }
+  main {
+    flex: 1;
+    padding: 0 var(--gap-2xl);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
 
-    [role=document] {
-        max-width: var(--measure-prose);
-        margin: 0 auto;
-        padding-top: var(--gap-lg);
-    }
+  [role='document'] {
+    max-width: var(--measure-prose);
+    margin: 0 auto;
+    padding-top: var(--gap-lg);
+  }
 </style>

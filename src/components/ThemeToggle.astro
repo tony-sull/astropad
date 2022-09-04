@@ -3,43 +3,43 @@ import IconButton from './IconButton.astro'
 ---
 
 <theme-toggle>
-    <IconButton id='light-theme' name='heroicons-solid:sun' label='Switch to light theme' lg />
-    <IconButton id='dark-theme' name='heroicons-solid:moon' label='Switch to dark theme' lg />
+  <IconButton id="light-theme" name="heroicons-solid:sun" label="Switch to light theme" lg />
+  <IconButton id="dark-theme" name="heroicons-solid:moon" label="Switch to dark theme" lg />
 </theme-toggle>
 
 <style is:global>
-    :root:not([data-theme]) theme-toggle {
-        display: none;
-    }
+  :root:not([data-theme]) theme-toggle {
+    display: none;
+  }
 
-    :root[data-theme=light] #light-theme {
-        display: none;
-    }
+  :root[data-theme='light'] #light-theme {
+    display: none;
+  }
 
-    :root[data-theme=dark] #dark-theme {
-        display: none;
-    }
+  :root[data-theme='dark'] #dark-theme {
+    display: none;
+  }
 </style>
 
 <script>
-    class ThemeToggle extends HTMLElement {
-        connectedCallback() {
-            this.addEventListener('click', this.toggleTheme.bind(this), true)
-        }
-
-        disconnectedCallback() {
-            this.removeEventListener('click', this.toggleTheme.bind(this))
-        }
-
-        toggleTheme() {
-            this.setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')
-        }
-
-        setTheme(theme: 'dark' | 'light') {
-            document.documentElement.dataset.theme = theme
-            localStorage.theme = theme
-        }
+  class ThemeToggle extends HTMLElement {
+    connectedCallback() {
+      this.addEventListener('click', this.toggleTheme.bind(this), true)
     }
 
-    customElements.define('theme-toggle', ThemeToggle)
+    disconnectedCallback() {
+      this.removeEventListener('click', this.toggleTheme.bind(this))
+    }
+
+    toggleTheme() {
+      this.setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')
+    }
+
+    setTheme(theme: 'dark' | 'light') {
+      document.documentElement.dataset.theme = theme
+      localStorage.theme = theme
+    }
+  }
+
+  customElements.define('theme-toggle', ThemeToggle)
 </script>
