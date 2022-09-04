@@ -1,13 +1,14 @@
 ---
+import type { MDXInstance } from 'astro'
 import Layout from './Base.astro'
 import type { Props as LayoutProps } from './Base.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
 
-export interface Props extends LayoutProps {}
+export interface Props extends MDXInstance<LayoutProps> {}
 
-const { ...layout } = Astro.props
+const { ...layout } = Astro.props.frontmatter
 ---
 
 <Layout {...layout}>

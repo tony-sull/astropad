@@ -1,22 +1,22 @@
 ---
-title: Working with images 
+title: Working with images
 layout: /src/layouts/Page.astro
 navigation:
-    order: 2
+  order: 2
 ---
 
 import { Picture } from '@astrojs/image/components'
 import Aside from '/src/components/Aside.astro'
 import sagan from '/src/assets/sagan.jpg'
 
-You can drop images, diagrams, or illustrations anywhere in your content. Images are automatically set to 100% width and centered with a subtle shadow and some small padding. There are two primary methods for adding images to your pages, each with its own set of pros and cons:  
+You can drop images, diagrams, or illustrations anywhere in your content. Images are automatically set to 100% width and centered with a subtle shadow and some small padding. There are two primary methods for adding images to your pages, each with its own set of pros and cons:
 
 ## Standard images
 
 If you have used Markdown before, this will be the familiar and typical way of adding images:
 
-* **Add your image to the /public folder** -- drop any image into your */public* folder and you will be able to reference it from any of your markdown pages
-* **Reference the image in your page** -- once you've added your image  you can reference it from anywhere using the following syntax:
+- **Add your image to the /public folder** -- drop any image into your _/public_ folder and you will be able to reference it from any of your markdown pages
+- **Reference the image in your page** -- once you've added your image you can reference it from anywhere using the following syntax:
 
 ```md
 ![Space](/space.jpg)
@@ -26,19 +26,21 @@ If you have used Markdown before, this will be the familiar and typical way of a
 
 **File size**
 
-Using this technique, the page will load your image exactly as your exported it, which means you are responsible for file size and dimensions. If you upload a 20MB file, the width of your image will be restricted to 100% of the main column width, but you will sending the entire 20MB. (This is a *bad idea!* )
+Using this technique, the page will load your image exactly as your exported it, which means you are responsible for file size and dimensions. If you upload a 20MB file, the width of your image will be restricted to 100% of the main column width, but you will sending the entire 20MB. (This is a _bad idea!_ )
 
 **Other notes**
 
-* Each image is linked to a full-sized version of the image that will open in new tab 
-* This is useful for sharing large diagrams or other images that may benefit from full screen viewing
-* Your images will not have an explicit height or width, which produces a warning (but no performance hit) in Google Lighthouse performance scores.
+- Each image is linked to a full-sized version of the image that will open in new tab
+- This is useful for sharing large diagrams or other images that may benefit from full screen viewing
+- Your images will not have an explicit height or width, which produces a warning (but no performance hit) in Google Lighthouse performance scores.
 
-<Aside theme='pink'>
-**Did you know?** You are responsible for your image sizing and optimization, and should upload the smallest useful version of your image. Use your image editor or any number of online tools to size and compress your images before uploading! 
+<Aside theme="pink">
+  **Did you know?** You are responsible for your image sizing and optimization, and should upload the smallest useful
+  version of your image. Use your image editor or any number of online tools to size and compress your images before
+  uploading!
 </Aside>
 
-## External images 
+## External images
 
 You can also refer to any external image via URL including sized Unsplashed images, transformed images from Cloudinary, or anywhere you can source an image online:
 
@@ -51,24 +53,23 @@ You can also refer to any external image via URL including sized Unsplashed imag
 
 ## Responsive images
 
-You can also take advantage of the [Astro Image](https://docs.astro.build/en/guides/integrations-guide/image/) plugin to generate and serve fully responsive images. This is a great option for image-heavy sites, or anybody who wants to serve smaller, next generation image files. 
+You can also take advantage of the [Astro Image](https://docs.astro.build/en/guides/integrations-guide/image/) plugin to generate and serve fully responsive images. This is a great option for image-heavy sites, or anybody who wants to serve smaller, next generation image files.
 
-* **Add your image to the /src folder** -- these images go into the same folder as any other image
-* **Reference the image using the `Picture` component** -- once you've added your image  you can reference it from anywhere using the following syntax:
+- **Add your image to the /src folder** -- these images go into the same folder as any other image
+- **Reference the image using the `Picture` component** -- once you've added your image you can reference it from anywhere using the following syntax:
 
 ```astro
-<Picture src={sagan} alt='Carl Sagan' widths={[414, 768, 1440]} sizes="100vw" />
+<Picture src={sagan} alt="Carl Sagan" widths={[414, 768, 1440]} sizes="100vw" />
 ```
 
-<Picture src={sagan} alt='Carl Sagan' widths={[414, 768, 1440]} sizes="100vw" />
+<Picture src={sagan} alt="Carl Sagan" widths={[414, 768, 1440]} sizes="100vw" />
 
 This syntax will generate 8 different sizes of your image, in 3 different formats (webp, jpeg, png) resulting in 24 different versions. The browser will automatically serve the best and smallest version of the image based on the users current screen resolution and browser support.
 
-
 **Limitations:**
 
-* There is currently no way to add a link to one of these responsive images, due to limitations in Markdown
-* There is no GIF support
-* There is no support for external images (e.g. Unsplashed or Cloudinary)
+- There is currently no way to add a link to one of these responsive images, due to limitations in Markdown
+- There is no GIF support
+- There is no support for external images (e.g. Unsplashed or Cloudinary)
 
 ---
