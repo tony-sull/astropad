@@ -19,6 +19,13 @@ import site from '../data/site.js'
   </div>
 </header>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js" defer></script>
+<script>
+  const json = await fetch('/search-index.json').then(res => res.json())
+  // @ts-ignore
+  window.searchIndex = elasticlunr.Index.load(json)
+</script>
+
 <style>
   header {
     display: grid;

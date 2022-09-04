@@ -4,8 +4,10 @@ specifiers:
   '@astrojs/image': ^0.5.0
   '@astrojs/mdx': ^0.11.1
   '@astrojs/sitemap': ^1.0.0
+  '@types/elasticlunr': ^0.9.5
   astro: ^1.1.5
   astro-icon: ^0.7.3
+  elasticlunr: ^0.9.5
   prettier: ^2.7.1
   prettier-plugin-astro: ^0.5.4
 
@@ -17,6 +19,8 @@ devDependencies:
   '@astrojs/image': 0.5.0
   '@astrojs/mdx': 0.11.1_rollup@2.77.3
   '@astrojs/sitemap': 1.0.0
+  '@types/elasticlunr': 0.9.5
+  elasticlunr: 0.9.5
   prettier: 2.7.1
   prettier-plugin-astro: 0.5.4
 
@@ -569,6 +573,10 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+
+  /@types/elasticlunr/0.9.5:
+    resolution: {integrity: sha512-gzY3gZLI6HczDO3vXM+u3P0dClEQ68k2d0UsZY1lyOaOZiGiamu7Ha/YBoc8CgAu5/3R+/u0HguDgD+xakmSEA==}
+    dev: true
 
   /@types/estree-jsx/0.0.1:
     resolution: {integrity: sha512-gcLAYiMfQklDCPjQegGn0TBAn9it05ISEsEhlKQUddIk7o2XDokOcTN7HBO8tznM0D9dGezvHEfRZBfZf6me0A==}
@@ -1129,6 +1137,10 @@ packages:
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: false
+
+  /elasticlunr/0.9.5:
+    resolution: {integrity: sha512-5YM9LFQgVYfuLNEoqMqVWIBuF2UNCA+xu/jz1TyryLN/wmBcQSb+GNAwvLKvEpGESwgGN8XA1nbLAt6rKlyHYQ==}
+    dev: true
 
   /electron-to-chromium/1.4.241:
     resolution: {integrity: sha512-e7Wsh4ilaioBZ5bMm6+F4V5c11dh56/5Jwz7Hl5Tu1J7cnB+Pqx5qIF2iC7HPpfyQMqGSvvLP5bBAIDd2gAtGw==}
