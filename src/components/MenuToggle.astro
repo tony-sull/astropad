@@ -17,19 +17,11 @@ import IconButton from './IconButton.astro'
     #onClick = this.toggleMenu.bind(this)
 
     connectedCallback() {
-      if (this.button) {
-        this.button.addEventListener('click', this.#onClick, true)
-      }
+      this.addEventListener('click', this.#onClick, true)
     }
 
     disconnectedCallback() {
-      if (this.button) {
-        this.button.removeEventListener('click', this.#onClick)
-      }
-    }
-
-    get button() {
-      return this.querySelector<HTMLButtonElement>('button')
+      this.removeEventListener('click', this.#onClick)
     }
 
     get menuOpen() {
