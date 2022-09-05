@@ -23,7 +23,7 @@ import site from '../data/site.js'
 <script>
   const json = await fetch('/search-index.json').then(res => res.json())
   // @ts-ignore
-  window.searchIndex = elasticlunr.Index.load(json)
+  // window.searchIndex = elasticlunr.Index.load(json)
 </script>
 
 <style>
