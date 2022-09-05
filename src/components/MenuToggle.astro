@@ -25,11 +25,11 @@ import IconButton from './IconButton.astro'
     }
 
     get menuOpen() {
-        return document.documentElement.dataset.menuOpen === 'true'
+      return document.documentElement.dataset.menuOpen === 'true'
     }
 
     set menuOpen(value: boolean) {
-        document.documentElement.dataset.menuOpen = value.toString()
+      document.documentElement.dataset.menuOpen = value.toString()
     }
 
     toggleMenu() {

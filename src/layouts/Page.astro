@@ -86,11 +86,13 @@ const { ...layout } = Astro.props.frontmatter
     padding-top: var(--gap-lg);
   }
 
-  :root[data-menu-open="false"] nav, :root:not([data-menu-open]) nav {
+  :root[data-menu-open='false'] nav,
+  :root:not([data-menu-open]) nav {
     transform: translate3d(-50%, 0, 0);
   }
 
-  :root[data-menu-open="false"] main, :root:not([data-menu-open]) main {
+  :root[data-menu-open='false'] main,
+  :root:not([data-menu-open]) main {
     transform: translate3d(0, 0, 0);
   }
 
@@ -111,7 +113,7 @@ const { ...layout } = Astro.props.frontmatter
       transition: margin var(--sidebar-duration) ease;
     }
 
-    :root[data-menu-open="false"] main {
+    :root[data-menu-open='false'] main {
       margin-inline-start: 0;
     }
   }
