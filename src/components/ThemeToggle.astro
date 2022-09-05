@@ -1,11 +1,12 @@
 ---
+import ClickToggle from './ClickToggle.astro'
 import IconButton from './IconButton.astro'
 ---
 
-<theme-toggle>
+<ClickToggle target=':root' attribute='data-theme' on='dark' off='light' storageKey='theme'>
   <IconButton id="light-theme" name="heroicons-solid:sun" label="Switch to light theme" lg />
   <IconButton id="dark-theme" name="heroicons-solid:moon" label="Switch to dark theme" lg />
-</theme-toggle>
+</ClickToggle>
 
 <style is:global>
   :root:not([data-theme]) theme-toggle {
@@ -20,28 +21,3 @@ import IconButton from './IconButton.astro'
     display: none;
   }
 </style>
-
-<script>
-  class ThemeToggle extends HTMLElement {
-    #onClick = this.toggleTheme.bind(this)
-
-    connectedCallback() {
-      this.addEventListener('click', this.#onClick, true)
-    }
-
-    disconnectedCallback() {
-      this.removeEventListener('click', this.#onClick)
-    }
-
-    toggleTheme() {
-      this.setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')
-    }
-
-    setTheme(theme: 'dark' | 'light') {
-      document.documentElement.dataset.theme = theme
-      localStorage.theme = theme
-    }
-  }
-
-  customElements.define('theme-toggle', ThemeToggle)
-</script>

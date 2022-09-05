@@ -38,15 +38,27 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
 
 <!-- inlining the theme check in the head to make sure the theme is set before the page renders -->
 <script is:inline>
-  if (localStorage.theme === 'dark') {
-    document.documentElement.dataset.theme = 'dark'
-  } else if (localStorage.theme === 'light') {
-    document.documentElement.dataset.theme = 'light'
-  } else {
-    document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
-  }
+  const themeMql = matchMedia('(prefers-color-scheme: dark)')
 
-  document.documentElement.dataset.menuOpen = window.matchMedia('(min-width: 640px)').matches
+  // use storage if it was set, otherwise follow the browser preferences
+  document.documentElement.dataset.theme = 'theme' in localStorage
+    ? localStorage.theme
+    : themeMql.matches ? 'dark' : 'light'
+
+  // automatically update when the browser preference changes
+  themeMql.addEventListener('change', (event) => {
+    localStorage.theme = document.documentElement.dataset.theme = event.matches ? 'dark' : 'light'
+  })
+
+  const menuMql = matchMedia('(min-width: 768px)')
+  
+  const onMenuMql = (event) => {
+    document.documentElement.dataset.menuOpen = event.matches
+  }
+ 
+  // hide the menu on load for mobile devices
+  onMenuMql(menuMql)
+
+  // hide the menu when the screen shrinks below the mobile breakpoint
+  menuMql.addEventListener('change', onMenuMql, true)
 </script>
