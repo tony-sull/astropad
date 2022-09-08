@@ -41,9 +41,8 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
   const themeMql = matchMedia('(prefers-color-scheme: dark)')
 
   // use storage if it was set, otherwise follow the browser preferences
-  document.documentElement.dataset.theme = 'theme' in localStorage
-    ? localStorage.theme
-    : themeMql.matches ? 'dark' : 'light'
+  document.documentElement.dataset.theme =
+    'theme' in localStorage ? localStorage.theme : themeMql.matches ? 'dark' : 'light'
 
   // automatically update when the browser preference changes
   themeMql.addEventListener('change', (event) => {
@@ -51,11 +50,11 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
   })
 
   const menuMql = matchMedia('(min-width: 768px)')
-  
+
   const onMenuMql = (event) => {
     document.documentElement.dataset.menuOpen = event.matches
   }
- 
+
   // hide the menu on load for mobile devices
   onMenuMql(menuMql)
 
