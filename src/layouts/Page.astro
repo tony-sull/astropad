@@ -73,6 +73,10 @@ const { ...layout } = Astro.props.frontmatter
     transform: translate3d(var(--sidebar-width), 0, 0);
   }
 
+  h1 {
+    margin-top: var(--gap);
+  }
+
   .animate #sidebar {
     will-change: transform;
     transition: transform var(--sidebar-duration) ease;
@@ -86,7 +90,7 @@ const { ...layout } = Astro.props.frontmatter
   [role='document'] {
     max-width: var(--measure-prose);
     margin: 0 auto;
-    padding-top: var(--gap-lg);
+    padding-top: var(--gap-xl);
   }
 
   :root[data-menu-open='false'] #sidebar,
