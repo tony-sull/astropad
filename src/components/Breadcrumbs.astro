@@ -16,12 +16,11 @@ const breadcrumbs: BreadcrumbList = {
   itemListElement: entries.map((entry, i) => {
     let item: ListItem = {
       '@type': 'ListItem',
-      name: entry.title,
       position: i + 1,
-    }
-
-    if (i < entries.length - 1) {
-      item.item = new URL(entry.url, Astro.site).toString()
+      item: {
+        '@id': new URL(entry.url, Astro.site).toString(),
+        name: entry.title,
+      }
     }
 
     return item
