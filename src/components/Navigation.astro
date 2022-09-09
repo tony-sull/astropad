@@ -19,11 +19,14 @@ const entries = findNavigationEntries(allPages)
 
 <style>
   ol {
-    counter-reset: section;
     padding-inline-start: 2ch;
     display: flex;
     flex-direction: column;
     row-gap: var(--gap);
+  }
+
+  nav :global(ol) {
+    counter-reset: section;
   }
 
   ol :global(li) {

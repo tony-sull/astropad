@@ -7,6 +7,11 @@ import image from '@astrojs/image'
 export default defineConfig({
   site: 'https://pad.astro.build',
   integrations: [mdx(), sitemap(), image()],
+  markdown: {
+    shikiConfig: {
+      theme: 'dracula'
+    }
+  },
   vite: {
     ssr: {
       external: ['svgo'],
