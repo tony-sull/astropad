@@ -1,0 +1,76 @@
+---
+import type { BreadcrumbList, ListItem } from 'schema-dts'
+import Schema from './Schema.astro'
+import { findBreadcrumbEntries } from '../utils/navigation.js'
+import type { Page } from '../utils/navigation.js'
+
+export interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { ...attrs } = Astro.props
+
+const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
+const entries = findBreadcrumbEntries(allPages, Astro.url.pathname)
+
+const breadcrumbs: BreadcrumbList = {
+  '@type': 'BreadcrumbList',
+  itemListElement: entries.map((entry, i) => {
+    let item: ListItem = {
+      '@type': 'ListItem',
+      name: entry.title,
+      position: i + 1,
+    }
+
+    if (i < entries.length - 1) {
+      item.item = new URL(entry.url, Astro.site).toString()
+    }
+
+    return item
+  }),
+}
+---
+
+<nav aria-label="Breadcrumbs">
+  <ol {...attrs}>
+    {
+      entries.map((entry, i) => (
+        <li>
+          {i < entries.length - 1 ? (
+            <a href={entry.url}>
+                {entry.title}
+            </a>
+          ) : (
+            <span aria-current="page">{entry.title}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<Schema json={breadcrumbs} />
+
+<style>
+  ol {
+    list-style: none;
+    display: inline-flex;
+    column-gap: var(--gap-sm);
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover, a:focus {
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+
+  li:not(:first-child)::before {
+    content: '→';
+    padding-right: var(--gap-sm);
+    color: var(--color-secondary);
+  }
+</style>

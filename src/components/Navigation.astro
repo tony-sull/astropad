@@ -1,58 +1,9 @@
 ---
-import type { MDXInstance } from 'astro'
 import NavigationItem from './NavigationItem.astro'
-import type { SEO } from '../data/seo.js'
+import { findNavigationEntries } from '../utils/navigation.js'
+import type { Page } from '../utils/navigation.js'
 
-export interface Props extends astroHTML.JSX.HTMLAttributes {}
-
-export interface Page extends SEO {
-  navigation?: {
-    order: number
-  }
-}
-
-export interface Entry {
-  title: string
-  url: string
-  order: number
-  parentKey?: string
-  children?: Entry[]
-}
-
-function getParentKey(url: string) {
-  const segments = url.split('/')
-
-  if (segments.length === 1) return undefined
-  return segments.slice(0, segments.length - 1).join('/')
-}
-
-function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
-  let pages: Entry[] = []
-
-  for (const entry of nodes) {
-    if (entry.frontmatter.navigation) {
-      const nav = entry.frontmatter.navigation
-      const parent = getParentKey(entry.url!)
-      if ((!key && !parent) || parent === key) {
-        pages.push({
-          ...nav,
-          title: entry.frontmatter.title,
-          url: entry.url!,
-        })
-      }
-    }
-  }
-
-  return pages
-    .sort((a, b) => a.order - b.order)
-    .map((entry) => {
-      if (entry.url) {
-        entry.children = findNavigationEntries(nodes, entry.url)
-      }
-
-      return entry
-    })
-}
+export interface Props extends astroHTML.JSX.HTMLAttributes { }
 
 const { ...attrs } = Astro.props
 
@@ -60,30 +11,27 @@ const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
 const entries = findNavigationEntries(allPages)
 ---
 
-<ol>
-  {entries.map((entry) => <NavigationItem {...entry} />)}
-</ol>
-
-<style is:global>
-  ol {
-    counter-reset: section;
-  }
-
-  ol li {
-    counter-increment: section;
-  }
-
-  ol li::marker {
-    content: counters(section, '.') '. ';
-    font-weight: 600;
-  }
-</style>
+<nav {...attrs}>
+  <ol>
+    {entries.map((entry) => <NavigationItem {...entry} />)}
+  </ol>
+</nav>
 
 <style>
   ol {
+    counter-reset: section;
     padding-inline-start: 2ch;
     display: flex;
     flex-direction: column;
     row-gap: var(--gap);
+  }
+
+  ol :global(li) {
+    counter-increment: section;
+  }
+
+  ol :global(li::marker) {
+    content: counters(section, '.') '. ';
+    font-weight: 600;
   }
 </style>

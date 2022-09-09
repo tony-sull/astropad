@@ -2,6 +2,7 @@
 import type { MDXInstance } from 'astro'
 import Layout from './Base.astro'
 import type { Props as LayoutProps } from './Base.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
@@ -12,14 +13,16 @@ const { ...layout } = Astro.props.frontmatter
 ---
 
 <Layout {...layout}>
-  <nav id="sidebar">
-    <Navigation />
-  </nav>
+  <Navigation id="sidebar" />
 
   <main>
     <Header />
 
     <div role="document">
+      <Breadcrumbs />
+
+      <h1>{layout.title}</h1>
+
       <slot />
 
       <Footer />
@@ -43,12 +46,12 @@ const { ...layout } = Astro.props.frontmatter
     flex-direction: row;
   }
 
-  nav,
+  #sidebar,
   main {
     overflow-block: auto;
   }
 
-  nav {
+  #sidebar {
     display: flex;
     justify-content: center;
     width: var(--sidebar-width);
@@ -70,7 +73,7 @@ const { ...layout } = Astro.props.frontmatter
     transform: translate3d(var(--sidebar-width), 0, 0);
   }
 
-  .animate nav {
+  .animate #sidebar {
     will-change: transform;
     transition: transform var(--sidebar-duration) ease;
   }
@@ -86,8 +89,8 @@ const { ...layout } = Astro.props.frontmatter
     padding-top: var(--gap-lg);
   }
 
-  :root[data-menu-open='false'] nav,
-  :root:not([data-menu-open]) nav {
+  :root[data-menu-open='false'] #sidebar,
+  :root:not([data-menu-open]) #sidebar {
     transform: translate3d(-50%, 0, 0);
   }
 
