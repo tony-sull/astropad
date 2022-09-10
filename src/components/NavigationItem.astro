@@ -1,12 +1,12 @@
 ---
-import type { Entry } from './Navigation.astro'
+import type { Entry } from '../utils/navigation.js'
 
 export interface Props extends Entry {}
 
 const { title, url, children = [] } = Astro.props
 ---
 
-<li>
+<li aria-label={title}>
   <a href={url}>{title}</a>
   {
     children.length > 0 && (
