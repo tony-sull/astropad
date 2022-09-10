@@ -8,7 +8,7 @@ export interface Props extends astroHTML.JSX.HTMLAttributes {}
 
 const { ...attrs } = Astro.props
 
-const allPages = await Astro.glob<Page>('/src/pages/**/*.mdx')
+const allPages = await Astro.glob<Page>('/src/content/pages/**/*.mdx')
 const entries = findBreadcrumbEntries(allPages, Astro.url.pathname)
 
 const breadcrumbs: BreadcrumbList = {

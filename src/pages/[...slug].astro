@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Page.astro'
+import type { Props as PageProps } from '../layouts/Page.astro'
+
+export async function getStaticPaths() {
+    const data = await Astro.glob('/src/content/**/*.mdx')
+
+    const results = data.map((page) => ({
+        params: { slug: import.meta.env.DEV ? page.url?.slice(1) : page.url },
+        props: page
+    }))
+
+    return results
+}
+
+const page = Astro.props as PageProps
+---
+
+<Layout {...page}>
+    <page.Content />
+</Layout>

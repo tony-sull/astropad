@@ -69,7 +69,7 @@ const { ...layout } = Astro.props.frontmatter
     flex: 1;
     padding: 0 var(--gap-2xl);
     z-index: 1;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    box-shadow: 0 10px 15px -3px rgb(17 24 39 / 0.1), 0 4px 6px -4px rgb(17 24 39 / 0.1);
     transform: translate3d(var(--sidebar-width), 0, 0);
   }
 
@@ -91,6 +91,11 @@ const { ...layout } = Astro.props.frontmatter
     max-width: var(--measure-prose);
     margin: 0 auto;
     padding-top: var(--gap-xl);
+  }
+
+  [role='document'] :is(img, picture, video) {
+    max-width: 100%;
+    height: auto;
   }
 
   :root[data-menu-open='false'] #sidebar,
