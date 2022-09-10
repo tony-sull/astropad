@@ -12,34 +12,35 @@ const { theme, ...attrs } = Astro.props
 
 <style>
   aside {
+    --aside-bg: var(--color-neutral-100);
+    --aside-fg: var(--color-neutral-900);
     padding: var(--gap) var(--gap-2xl);
     margin-block-end: var(--gap);
     border-radius: var(--rounded);
-    background-color: rgb(255 237 213);
+    background-color: var(--aside-bg);
+    color: var(--aside-fg);
+    box-shadow: var(--shadow);
   }
   :global([data-theme='dark']) :is(aside, aside strong, aside em) {
-    background-color: var(--color-neutral-400);
-    color: var(--color-neutral-900);
+    --aside-bg: var(--color-neutral-200);
+    --aside-fg: var(--color-neutral-900);
   }
   aside.blue {
-    background-color: rgb(219 234 254);
+    --aside-bg: rgb(236 254 255);
   }
   :global([data-theme='dark']) :is(aside.blue, aside.blue strong, aside.blue em) {
-    background-color: rgb(30 58 138);
-    color: var(--color-neutral-200);
+    --aside-bg: rgb(22 78 99);
   }
   aside.pink {
-    background-color: rgb(252 231 243);
+    --aside-bg: rgb(250 232 255);
   }
   :global([data-theme='dark']) :is(aside.pink, aside.pink strong, aside.pink em) {
-    background-color: rgb(131 24 67);
-    color: var(--color-neutral-200);
+    --aside-bg: rgb(112 26 117);
   }
   aside.green {
-    background-color: rgb(220 252 231);
+    --aside-bg: rgb(236 253 245);
   }
   :global([data-theme='dark']) :is(aside.green, aside.green strong, aside.green em) {
-    background-color: rgb(20 83 45);
-    color: var(--color-neutral-200);
+    background-color: rgb(6 78 59);
   }
 </style>

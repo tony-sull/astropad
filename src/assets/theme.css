@@ -49,6 +49,9 @@
   --rounded-sm: calc(var(--rounded) / var(--ratio));
   --rounded: 0.5rem;
   --rounded-lg: calc(var(--rounded) * var(--ratio));
+
+  --shadow: 0 1px 3px 0 rgb(17 24 39 / 0.1), 0 1px 2px -1px rgb(17 24 39 / 0.1);
+  --shadow-lg: 0 4px 6px -1px rgb(17 24 39 / 0.1), 0 2px 4px -2px rgb(17 24 39 / 0.1);
 }
 
 /* dark theme via HTML dataset */
