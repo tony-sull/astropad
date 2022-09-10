@@ -6,7 +6,7 @@ export async function getStaticPaths() {
     const data = await Astro.glob('/src/content/**/*.mdx')
 
     const results = data.map((page) => ({
-        params: { slug: import.meta.env.DEV ? page.url?.slice(1) : page.url },
+        params: { slug: page.url?.slice(1) },
         props: page
     }))
 
