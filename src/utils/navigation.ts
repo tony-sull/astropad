@@ -2,7 +2,7 @@ import type { MDXInstance } from 'astro'
 import { DepGraph } from 'dependency-graph'
 import type { SEO } from '../data/seo.js'
 
-export interface Page extends SEO {
+export interface Page extends Partial<SEO> {
   navigation?: {
     order: number
     title?: string

@@ -6,15 +6,16 @@ import type { Page } from '../utils/navigation.js'
 
 export interface Props extends astroHTML.JSX.HTMLAttributes {
   page: MDXInstance<Page>
+  'aria-label': string
 }
 
-const { page, ...attrs } = Astro.props
+const { page, 'aria-label': ariaLabel, ...attrs } = Astro.props
 
 const entries = findHeadingEntries(page)
 ---
 
-<nav {...attrs}>
-  <p>On this page</p>
+<nav aria-label={ariaLabel} {...attrs}>
+  <p>{ariaLabel}</p>
   <ol>
     {entries.map((entry) => <NavigationItem {...entry} />)}
   </ol>

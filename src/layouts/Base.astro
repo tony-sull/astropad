@@ -1,7 +1,8 @@
 ---
-import Head, { Props as HeadProps } from '../components/Head.astro'
+import Head from '../components/Head.astro'
+import type { Page } from '../utils/navigation.js'
 
-export interface Props extends HeadProps {}
+export interface Props extends Page { }
 
 const { ...head } = Astro.props
 ---

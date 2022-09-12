@@ -1,7 +1,8 @@
 ---
-import Layout, { Props as LayoutProps } from '../layouts/Page.astro'
+import Layout from '../layouts/Page.astro'
+import type { Page } from '../utils/navigation.js'
 
-const page = await Astro.glob<LayoutProps>('../content/pages/**/*.mdx').then((pages) =>
+const page = await Astro.glob<Partial<Page>>('../content/pages/**/*.mdx').then((pages) =>
   pages.find(({ url }) => url === '')
 )
 
