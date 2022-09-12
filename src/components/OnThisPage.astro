@@ -1,17 +1,20 @@
 ---
+import type { MDXInstance } from 'astro'
 import NavigationItem from './NavigationItem.astro'
-import { findNavigationEntries } from '../utils/navigation.js'
+import { findHeadingEntries } from '../utils/navigation.js'
 import type { Page } from '../utils/navigation.js'
 
-export interface Props extends astroHTML.JSX.HTMLAttributes {}
+export interface Props extends astroHTML.JSX.HTMLAttributes {
+  page: MDXInstance<Page>
+}
 
-const { ...attrs } = Astro.props
+const { page, ...attrs } = Astro.props
 
-const allPages = await Astro.glob<Page>('/src/content/pages/**/*.mdx')
-const entries = findNavigationEntries(allPages)
+const entries = findHeadingEntries(page)
 ---
 
 <nav {...attrs}>
+  <p>On this page</p>
   <ol>
     {entries.map((entry) => <NavigationItem {...entry} />)}
   </ol>

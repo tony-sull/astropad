@@ -1,132 +1,26 @@
 ---
 import type { MDXInstance } from 'astro'
-import Layout from './Base.astro'
-import type { Props as LayoutProps } from './Base.astro'
-import Breadcrumbs from '../components/Breadcrumbs.astro'
-import Footer from '../components/Footer.astro'
+import Layout, { Props as LayoutProps } from './Base.astro'
 import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
+import OnThisPage from '../components/OnThisPage.astro'
 
-export interface Props extends MDXInstance<LayoutProps> {}
+export interface Props {
+  page: MDXInstance<LayoutProps>
+}
 
-const { ...layout } = Astro.props.frontmatter
+const { page } = Astro.props
 ---
 
-<Layout {...layout}>
-  <Navigation id="sidebar" />
+<Layout {...page.frontmatter}>
+  <Header />
 
   <main>
-    <Header />
+    <Navigation />
+    <OnThisPage page={page} />
 
-    <div role="document">
-      <Breadcrumbs />
+    <page.Content />
 
-      <h1>{layout.title}</h1>
-
-      <slot />
-
-      <Footer />
-    </div>
+    <footer></footer>
   </main>
 </Layout>
-
-<script>
-  import requestIdleCallback from '../utils/requestIdleCallback.js'
-  requestIdleCallback(() => document.documentElement.classList.add('animate'))
-</script>
-
-<style is:global>
-  :root {
-    --sidebar-width: 35ch;
-    --sidebar-duration: 200ms;
-  }
-
-  body {
-    display: flex;
-    flex-direction: row;
-  }
-
-  #sidebar,
-  main {
-    overflow-block: auto;
-  }
-
-  #sidebar {
-    display: flex;
-    justify-content: center;
-    width: var(--sidebar-width);
-    background-color: var(--color-neutral-100);
-    padding: 0 var(--gap-xl);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  main {
-    background-color: inherit;
-    color: inherit;
-    flex: 1;
-    padding: 0 var(--gap-2xl);
-    z-index: 1;
-    box-shadow: var(--shadow-lg);
-    transform: translate3d(var(--sidebar-width), 0, 0);
-  }
-
-  h1 {
-    margin-top: var(--gap);
-  }
-
-  .animate #sidebar {
-    will-change: transform;
-    transition: transform var(--sidebar-duration) ease;
-  }
-
-  .animate main {
-    will-change: transform;
-    transition: transform var(--sidebar-duration) ease;
-  }
-
-  [role='document'] {
-    max-width: var(--measure-prose);
-    margin: 0 auto;
-    padding-top: var(--gap-xl);
-  }
-
-  [role='document'] :is(img, picture, video) {
-    max-width: 100%;
-    height: auto;
-  }
-
-  :root[data-menu-open='false'] #sidebar,
-  :root:not([data-menu-open]) #sidebar {
-    transform: translate3d(-50%, 0, 0);
-  }
-
-  :root[data-menu-open='false'] main,
-  :root:not([data-menu-open]) main {
-    transform: translate3d(0, 0, 0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :root {
-      --sidebar-duration: 0;
-    }
-  }
-
-  @media (min-width: 768px) {
-    main {
-      margin-inline-start: var(--sidebar-width);
-      will-change: margin-inline-start;
-      transform: none;
-    }
-
-    .animate main {
-      transition: margin var(--sidebar-duration) ease;
-    }
-
-    :root[data-menu-open='false'] main {
-      margin-inline-start: 0;
-    }
-  }
-</style>

@@ -1,47 +1,7 @@
 ---
-import IconButton from './IconButton.astro'
-import MenuToggle from './MenuToggle.astro'
-import ThemeToggle from './ThemeToggle.astro'
-import site from '../data/site.js'
+import seo from '../data/seo.js'
 ---
 
 <header>
-  <div>
-    <MenuToggle />
-  </div>
-
-  <a href="/">{site.name}</a>
-
-  <div>
-    <ThemeToggle />
-    {site.githubUrl && <IconButton name="cib:github" label="View Astropad on GitHub" href={site.githubUrl} />}
-  </div>
+  <a href="/">{seo.title}</a>
 </header>
-
-<style>
-  header {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    color: var(--color-neutral-600);
-  }
-
-  a {
-    text-decoration: none;
-    font-size: var(--text-xl);
-    color: inherit;
-  }
-
-  div {
-    display: flex;
-  }
-
-  div:first-of-type {
-    margin-left: -12px;
-  }
-
-  div:last-of-type {
-    margin-right: -12px;
-    justify-content: flex-end;
-  }
-</style>

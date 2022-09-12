@@ -1,12 +1,10 @@
 ---
 import seo from '../data/seo.js'
-import site from '../data/site.js'
 import type { SEO } from '../data/seo.js'
 
 export interface Props extends Partial<SEO> {}
 
 const {
-  title = seo.title,
   description = seo.description,
   image = seo.image,
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
@@ -14,6 +12,8 @@ const {
   noindex = false,
   nofollow = false,
 } = Astro.props
+
+const title = [Astro.props.title, seo.title].filter(Boolean).join(' | ')
 
 const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(', ')
 ---
@@ -30,7 +30,7 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={image} />
-<meta property="og:site_name" content={site.name} />
+<meta property="og:site_name" content={seo.title} />
 
 {twitter?.card && <meta name="twitter:card" content={twitter.card} />}
 {twitter?.site && <meta name="twitter:site" content={twitter.site} />}
@@ -39,25 +39,19 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
 <!-- inlining the theme check in the head to make sure the theme is set before the page renders -->
 <script is:inline>
   const themeMql = matchMedia('(prefers-color-scheme: dark)')
-
   // use storage if it was set, otherwise follow the browser preferences
   document.documentElement.dataset.theme =
     'theme' in localStorage ? localStorage.theme : themeMql.matches ? 'dark' : 'light'
-
   // automatically update when the browser preference changes
   themeMql.addEventListener('change', (event) => {
     localStorage.theme = document.documentElement.dataset.theme = event.matches ? 'dark' : 'light'
   })
-
   const menuMql = matchMedia('(min-width: 768px)')
-
   const onMenuMql = (event) => {
     document.documentElement.dataset.menuOpen = event.matches
   }
-
   // hide the menu on load for mobile devices
   onMenuMql(menuMql)
-
   // hide the menu when the screen shrinks below the mobile breakpoint
   menuMql.addEventListener('change', onMenuMql, true)
 </script>

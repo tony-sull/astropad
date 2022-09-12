@@ -1,7 +1,5 @@
 ---
-import '../assets/theme.css'
-import Head from '../components/Head.astro'
-import type { Props as HeadProps } from '../components/Head.astro'
+import Head, { Props as HeadProps } from '../components/Head.astro'
 
 export interface Props extends HeadProps {}
 
@@ -14,17 +12,5 @@ const { ...head } = Astro.props
   </head>
   <body>
     <slot />
-    <style>
-      html,
-      body {
-        background-color: var(--color-neutral-50);
-        color: var(--color-neutral-900);
-        font-family: var(--font-sans);
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        overflow: hidden;
-      }
-    </style>
   </body>
 </html>

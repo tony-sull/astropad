@@ -5,6 +5,7 @@ import type { SEO } from '../data/seo.js'
 export interface Page extends SEO {
   navigation?: {
     order: number
+    title?: string
   }
 }
 
@@ -33,7 +34,7 @@ export function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '')
       if ((!key && !parent) || parent === key) {
         pages.push({
           ...nav,
-          title: entry.frontmatter.title,
+          title: nav.title || entry.frontmatter.title,
           url: entry.url!,
         })
       }
@@ -92,4 +93,17 @@ export function findBreadcrumbEntries(
         return data
       })
     : []
+}
+
+export function findHeadingEntries(
+  node: MDXInstance<Page>,
+  options: { levels: number[] } = { levels: [2]}
+): Entry[] {
+  return node.getHeadings()
+    .filter((heading) => options.levels.includes(heading.depth))
+    .map((heading, i) => ({
+      title: heading.text,
+      url: `${node.url}#${heading.slug}`,
+      order: i,
+    }))
 }

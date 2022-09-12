@@ -1,1 +1,13 @@
-<meta http-equiv="refresh" content="0;url=/getting-started" />
+---
+import Layout, { Props as LayoutProps } from '../layouts/Page.astro'
+
+const page = await Astro.glob<LayoutProps>('../content/pages/**/*.mdx').then((pages) =>
+  pages.find(({ url }) => url === '')
+)
+
+if (!page) {
+  throw new Error('homepage not found!')
+}
+---
+
+<Layout page={page} />

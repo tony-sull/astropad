@@ -1,21 +1,18 @@
 ---
-import Layout from '../layouts/Page.astro'
-import type { Props as PageProps } from '../layouts/Page.astro'
+import Layout, { Props as LayoutProps } from '../layouts/Page.astro'
 
 export async function getStaticPaths() {
-    const data = await Astro.glob('/src/content/**/*.mdx')
+  const allPages = await Astro.glob<LayoutProps>('../content/pages/**/*.mdx')
 
-    const results = data.map((page) => ({
-        params: { slug: page.url?.slice(1) },
-        props: page
+  return allPages
+    .map((page) => ({
+      params: { slug: page.url?.slice(1) },
+      props: { page },
     }))
-
-    return results
+    .filter((page) => !!page.params.slug)
 }
 
-const page = Astro.props as PageProps
+const { page } = Astro.props
 ---
 
-<Layout {...page}>
-    <page.Content />
-</Layout>
+<Layout page={page} />
