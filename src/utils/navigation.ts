@@ -120,7 +120,9 @@ function flatten(entries: Entry[]): Entry[] {
     }
   }
 
-  entries.map(walk)
+  for(const entry of entries) {
+    walk(entry)
+  }
 
   return result
 }
@@ -130,8 +132,6 @@ export function findPaginationEntries(
   activeNode: MDXInstance<Page>
 ): { next?: Entry, previous?: Entry } {
   const allEntries = flatten(findNavigationEntries(nodes))
-
-  console.log(activeNode.url, allEntries)
 
   const index = allEntries.findIndex((entry) => entry.url === activeNode.url)
 
