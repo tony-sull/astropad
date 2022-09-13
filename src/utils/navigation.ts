@@ -1,13 +1,19 @@
-import type { MDXInstance } from 'astro'
+import type { MarkdownInstance, MDXInstance } from 'astro'
 import { DepGraph } from 'dependency-graph'
 import type { SEO } from '../data/seo.js'
+import type { RequireSome } from './types.js'
 
-export interface Page extends Partial<SEO> {
-  title: string
+export interface PageFrontmatter extends RequireSome<SEO, 'title'> {
   navigation?: {
     order: number
     title?: string
   }
+}
+
+export type Page = MarkdownInstance<PageFrontmatter> | MDXInstance<PageFrontmatter>
+
+export function isMDXPage(page: Page): page is MDXInstance<PageFrontmatter> {
+  return 'getHeadings' in page
 }
 
 export interface Entry {
@@ -25,7 +31,7 @@ function getParentKey(url: string) {
   return segments.slice(0, segments.length - 1).join('/')
 }
 
-export function findNavigationEntries(nodes: MDXInstance<Page>[] = [], key = '') {
+export function findNavigationEntries(nodes: Page[] = [], key = '') {
   let pages: Entry[] = []
 
   for (const entry of nodes) {
@@ -65,7 +71,7 @@ function findDependencies(pages: Entry[], depGraph: DepGraph<Entry>, parentKey?:
   }
 }
 
-function getDependencyGraph(nodes: MDXInstance<Page>[] = []) {
+function getDependencyGraph(nodes: Page[] = []) {
   let pages = findNavigationEntries(nodes)
   let graph = new DepGraph<Entry>()
   findDependencies(pages, graph)
@@ -73,7 +79,7 @@ function getDependencyGraph(nodes: MDXInstance<Page>[] = []) {
 }
 
 export function findBreadcrumbEntries(
-  nodes: MDXInstance<Page>[],
+  nodes: Page[],
   activeKey: string,
   options: { includeSelf: boolean } = { includeSelf: true }
 ) {
@@ -96,11 +102,9 @@ export function findBreadcrumbEntries(
     : []
 }
 
-export function findHeadingEntries(
-  node: MDXInstance<Page>,
-  options: { levels: number[] } = { levels: [2]}
-): Entry[] {
-  return node.getHeadings()
+export function findHeadingEntries(node: Page, options: { levels: number[] } = { levels: [2] }): Entry[] {
+  return node
+    .getHeadings()
     .filter((heading) => options.levels.includes(heading.depth))
     .map((heading, i) => ({
       title: heading.text,
@@ -120,17 +124,14 @@ function flatten(entries: Entry[]): Entry[] {
     }
   }
 
-  for(const entry of entries) {
+  for (const entry of entries) {
     walk(entry)
   }
 
   return result
 }
 
-export function findPaginationEntries(
-  nodes: MDXInstance<Page>[],
-  activeNode: MDXInstance<Page>
-): { next?: Entry, previous?: Entry } {
+export function findPaginationEntries(nodes: Page[], activeNode: Page): { next?: Entry; previous?: Entry } {
   const allEntries = flatten(findNavigationEntries(nodes))
 
   const index = allEntries.findIndex((entry) => entry.url === activeNode.url)

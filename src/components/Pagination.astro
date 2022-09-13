@@ -1,35 +1,47 @@
 ---
-import type { MDXInstance } from 'astro'
 import { findPaginationEntries } from '../utils/navigation.js'
-import type { Page } from '../utils/navigation.js'
+import type { Page, PageFrontmatter } from '../utils/navigation.js'
 import type { RequireSome } from '../utils/types.js'
 
 export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
-    page: MDXInstance<Page>
+  page: Page
 }
 
 const { page, ...attrs } = Astro.props
 
-const allPages = await Astro.glob<Page>('/src/content/pages/**/*.mdx')
+const allPages = await Promise.all([
+  Astro.glob<PageFrontmatter>('/src/content/pages/**/*.mdx'),
+  Astro.glob<PageFrontmatter>('/src/content/pages/**/*.md')
+  ]
+).then(([mdx, md]) => [...mdx, ...md])
+
 const { next, previous } = findPaginationEntries(allPages, page)
 ---
 
 <nav {...attrs}>
-    {previous && (
-        <a class="prev" href={previous.url}>{previous.title}</a>
-    )}
-    {next && (
-        <a class="next" href={next.url}>{next.title}</a>
-    )}
+  {
+    previous && (
+      <a class="prev" href={previous.url}>
+        {previous.title}
+      </a>
+    )
+  }
+  {
+    next && (
+      <a class="next" href={next.url}>
+        {next.title}
+      </a>
+    )
+  }
 </nav>
 
 <style>
-    nav {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-    }
+  nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
 
-    .next {
-        grid-column: -1;
-    }
+  .next {
+    grid-column: ;
+  }
 </style>

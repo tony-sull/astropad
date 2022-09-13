@@ -1,21 +1,19 @@
 ---
-import type { MDXInstance } from 'astro'
 import NavigationItem from './NavigationItem.astro'
 import { findHeadingEntries } from '../utils/navigation.js'
 import type { Page } from '../utils/navigation.js'
 import type { RequireSome } from '../utils/types'
 
 export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
-  page: MDXInstance<Page>
+  page: Page
 }
 
-const { page, 'aria-label': ariaLabel, ...attrs } = Astro.props
+const { page, ...attrs } = Astro.props
 
 const entries = findHeadingEntries(page)
 ---
 
-<nav aria-label={ariaLabel} {...attrs}>
-  <p>{ariaLabel}</p>
+<nav {...attrs}>
   <ol>
     {entries.map((entry) => <NavigationItem {...entry} />)}
   </ol>

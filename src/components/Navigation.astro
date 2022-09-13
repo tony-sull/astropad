@@ -1,14 +1,19 @@
 ---
 import NavigationItem from './NavigationItem.astro'
-import { findNavigationEntries } from '../utils/navigation.js'
-import type { Page } from '../utils/navigation.js'
+import { findNavigationEntries, Page } from '../utils/navigation.js'
+import type { PageFrontmatter } from '../utils/navigation.js'
 import type { RequireSome } from '../utils/types'
 
-export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> { }
+export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {}
 
 const { ...attrs } = Astro.props
 
-const allPages = await Astro.glob<Page>('/src/content/pages/**/*.mdx')
+const allPages = await Promise.all([
+  Astro.glob<PageFrontmatter>('/src/content/pages/**/*.mdx'),
+  Astro.glob<PageFrontmatter>('/src/content/pages/**/*.md')
+  ]
+).then(([mdx, md]) => [...mdx, ...md])
+
 const entries = findNavigationEntries(allPages)
 ---
 

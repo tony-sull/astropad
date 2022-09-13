@@ -1,8 +1,10 @@
 ---
 title: Editor setup
 navigation:
-    order: 3
+  order: 3
 ---
+
+import Aside from '/src/components/Aside.astro'
 
 # Editor Setup
 
@@ -10,7 +12,7 @@ Customize your code editor to improve the Astropad writing experience.
 
 ## Official Astro Plugin
 
-Check out the [Astro docs](https://docs.astro.build/en/eidtor-setup/) for deatils on setting up your favorite code editor with Astro's language tools.
+Check out the [Astro docs](https://docs.astro.build/en/editor-setup/) for deatils on setting up your favorite code editor with Astro's language tools.
 
 For Astropad, we also recommend installing MDX language tools. There's an official [VS Code](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) extension for MDX if that's your jam - the MDX community is growing fast so there's likely an extension for your favorite editor setup!
 
@@ -19,3 +21,13 @@ For Astropad, we also recommend installing MDX language tools. There's an offici
 ### Prettier
 
 Astropad includes [Prettier](https://prettier.io/) out of the box, pre-configured with the [official Astro prettier plugin](https://github.com/withastro/prettier-plugin-astro).
+
+<Aside type='caution' aria-label="Using with pnpm">
+Due to upstream issues inside Prettier, the plugin will not be automatically detected when using pnpm. In order to make it find the plugin, the following parameter needs to be added when running Prettier:
+
+```bash
+prettier --write --plugin-search-dir=. .
+```
+
+Additional settings are also required when using Prettier inside VS Code. See the plugin’s README for more information.
+</Aside>

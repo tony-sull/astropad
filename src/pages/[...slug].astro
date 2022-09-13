@@ -1,8 +1,12 @@
 ---
-import Layout, { Props as LayoutProps } from '../layouts/Page.astro'
+import Layout from '../layouts/Page.astro'
+import type { PageFrontmatter } from '../utils/navigation'
 
 export async function getStaticPaths() {
-  const allPages = await Astro.glob<LayoutProps>('../content/pages/**/*.mdx')
+  const allPages = await Promise.all([
+    Astro.glob<PageFrontmatter>('/src/content/pages/**/*.mdx'),
+    Astro.glob<PageFrontmatter>('/src/content/pages/**/*.md'),
+  ]).then(([mdx, md]) => [...mdx, ...md])
 
   return allPages
     .map((page) => ({

@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon'
+import type { RequireSome } from '../utils/types'
+
+export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
+  type: 'info' | 'caution'
+}
+
+const ICONS: { [key: string]: string } = {
+    info: 'bi:info-circle-fill',
+    caution: 'bi:info-circle-fill'
+}
+
+const { type, class: className, ...attrs } = Astro.props
+
+const icon = type && ICONS[type]
+---
+
+<aside {...attrs} class:list={[className, type]}>
+  <p>
+    {icon && (
+        <span>
+            <Icon name={icon} size={20} />
+        </span>
+    )}
+    {attrs['aria-label']}
+  </p>
+  <slot />
+</aside>

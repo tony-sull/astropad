@@ -1,8 +1,8 @@
 ---
 import Head from '../components/Head.astro'
-import type { Page } from '../utils/navigation.js'
+import type { PageFrontmatter } from '../utils/navigation.js'
 
-export interface Props extends Page { }
+export interface Props extends PageFrontmatter {}
 
 const { ...head } = Astro.props
 ---
