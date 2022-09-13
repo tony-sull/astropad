@@ -16,7 +16,7 @@ const { next, previous } = findPaginationEntries(allPages, page)
 
 <nav {...attrs}>
     {previous && (
-        <a class="previous" href={previous.url}>{previous.title}</a>
+        <a class="prev" href={previous.url}>{previous.title}</a>
     )}
     {next && (
         <a class="next" href={next.url}>{next.title}</a>
@@ -25,7 +25,11 @@ const { next, previous } = findPaginationEntries(allPages, page)
 
 <style>
     nav {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .next {
+        grid-column: -1;
     }
 </style>
