@@ -1,0 +1,74 @@
+:root {
+  --measure: 100%;
+  --measure-prose: 80ch;
+  --ratio: 1.5;
+
+  --gap-4xs: calc(var(--gap-3xs) / var(--ratio));
+  --gap-3xs: calc(var(--gap-2xs) / var(--ratio));
+  --gap-2xs: calc(var(--gap-xs) / var(--ratio));
+  --gap-xs: calc(var(--gap-sm) / var(--ratio));
+  --gap-sm: calc(var(--gap-base) / var(--ratio));
+  --gap-base: 1rem;
+  --gap-lg: calc(var(--gap-base) * var(--ratio));
+  --gap-xl: calc(var(--gap-lg) * var(--ratio));
+  --gap-2xl: calc(var(--gap-xl) * var(--ratio));
+  --gap-3xl: calc(var(--gap-2xl) * var(--ratio));
+  --gap-4xl: calc(var(--gap-3xl) * var(--ratio));
+
+  --text-4xl: 3.052rem;
+  --text-3xl: 2.441rem;
+  --text-2xl: 1.953rem;
+  --text-xl: 1.563rem;
+  --text-lg: 1.25rem;
+  --text-base: 1rem;
+  --text-sm: 0.8rem;
+
+  --border-thin: 0.125rem;
+  --border-medium: calc(var(--border-thin) * var(--ratio) * var(--ratio));
+  --border-thick: calc(var(--border-medium) * var(--ratio) * var(--ratio));
+
+  --color-primary: #325476;
+  --color-secondary: #0b70ba;
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+}
+
+[data-theme='dark'] {
+  --color-primary: #002244;
+  --color-secondary: #3ea8f4;
+  --color-neutral-50: #111827;
+  --color-neutral-100: #1f2937;
+  --color-neutral-200: #374151;
+  --color-neutral-300: #4b5563;
+  --color-neutral-400: #6b7280;
+  --color-neutral-500: #9ca3af;
+  --color-neutral-600: #d1d5db;
+  --color-neutral-700: #e5e7eb;
+  --color-neutral-800: #f3f4f6;
+  --color-neutral-900: #f9fafb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-primary: #002244;
+    --color-secondary: #3ea8f4;
+    --color-neutral-50: #111827;
+    --color-neutral-100: #1f2937;
+    --color-neutral-200: #374151;
+    --color-neutral-300: #4b5563;
+    --color-neutral-400: #6b7280;
+    --color-neutral-500: #9ca3af;
+    --color-neutral-600: #d1d5db;
+    --color-neutral-700: #e5e7eb;
+    --color-neutral-800: #f3f4f6;
+    --color-neutral-900: #f9fafb;
+  }
+}
