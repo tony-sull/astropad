@@ -1,0 +1,31 @@
+---
+import type { MDXInstance } from 'astro'
+import { findPaginationEntries } from '../utils/navigation.js'
+import type { Page } from '../utils/navigation.js'
+import type { RequireSome } from '../utils/types.js'
+
+export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
+    page: MDXInstance<Page>
+}
+
+const { page, ...attrs } = Astro.props
+
+const allPages = await Astro.glob<Page>('/src/content/pages/**/*.mdx')
+const { next, previous } = findPaginationEntries(allPages, page)
+---
+
+<nav {...attrs}>
+    {previous && (
+        <a class="previous" href={previous.url}>{previous.title}</a>
+    )}
+    {next && (
+        <a class="next" href={next.url}>{next.title}</a>
+    )}
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>

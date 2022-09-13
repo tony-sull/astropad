@@ -3,10 +3,10 @@ import type { MDXInstance } from 'astro'
 import NavigationItem from './NavigationItem.astro'
 import { findHeadingEntries } from '../utils/navigation.js'
 import type { Page } from '../utils/navigation.js'
+import type { RequireSome } from '../utils/types'
 
-export interface Props extends astroHTML.JSX.HTMLAttributes {
+export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
   page: MDXInstance<Page>
-  'aria-label': string
 }
 
 const { page, 'aria-label': ariaLabel, ...attrs } = Astro.props

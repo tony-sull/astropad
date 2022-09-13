@@ -4,10 +4,11 @@ import Layout from './Base.astro'
 import Header from '../components/Header.astro'
 import Navigation from '../components/Navigation.astro'
 import OnThisPage from '../components/OnThisPage.astro'
+import Pagination from '../components/Pagination.astro'
 import type { Page } from '../utils/navigation.js'
 
 export interface Props {
-  page: MDXInstance<Partial<Page>>
+  page: MDXInstance<Page>
 }
 
 const { page } = Astro.props
@@ -21,6 +22,8 @@ const { page } = Astro.props
     <OnThisPage aria-label="On this page" page={page} />
 
     <page.Content />
+
+    <Pagination page={page} />
 
     <footer></footer>
   </main>

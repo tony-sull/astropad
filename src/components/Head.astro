@@ -35,23 +35,3 @@ const robots = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow']
 {twitter?.card && <meta name="twitter:card" content={twitter.card} />}
 {twitter?.site && <meta name="twitter:site" content={twitter.site} />}
 {twitter?.creator && <meta name="twitter:creator" content={twitter.creator} />}
-
-<!-- inlining the theme check in the head to make sure the theme is set before the page renders -->
-<script is:inline>
-  const themeMql = matchMedia('(prefers-color-scheme: dark)')
-  // use storage if it was set, otherwise follow the browser preferences
-  document.documentElement.dataset.theme =
-    'theme' in localStorage ? localStorage.theme : themeMql.matches ? 'dark' : 'light'
-  // automatically update when the browser preference changes
-  themeMql.addEventListener('change', (event) => {
-    localStorage.theme = document.documentElement.dataset.theme = event.matches ? 'dark' : 'light'
-  })
-  const menuMql = matchMedia('(min-width: 768px)')
-  const onMenuMql = (event) => {
-    document.documentElement.dataset.menuOpen = event.matches
-  }
-  // hide the menu on load for mobile devices
-  onMenuMql(menuMql)
-  // hide the menu when the screen shrinks below the mobile breakpoint
-  menuMql.addEventListener('change', onMenuMql, true)
-</script>

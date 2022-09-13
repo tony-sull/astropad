@@ -3,6 +3,7 @@ import { DepGraph } from 'dependency-graph'
 import type { SEO } from '../data/seo.js'
 
 export interface Page extends Partial<SEO> {
+  title: string
   navigation?: {
     order: number
     title?: string
@@ -106,4 +107,36 @@ export function findHeadingEntries(
       url: `${node.url}#${heading.slug}`,
       order: i,
     }))
+}
+
+function flatten(entries: Entry[]): Entry[] {
+  let result: Entry[] = []
+
+  function walk(entry: Entry) {
+    result.push(entry)
+
+    if (entry.children?.length) {
+      entry.children.forEach(walk)
+    }
+  }
+
+  entries.map(walk)
+
+  return result
+}
+
+export function findPaginationEntries(
+  nodes: MDXInstance<Page>[],
+  activeNode: MDXInstance<Page>
+): { next?: Entry, previous?: Entry } {
+  const allEntries = flatten(findNavigationEntries(nodes))
+
+  console.log(activeNode.url, allEntries)
+
+  const index = allEntries.findIndex((entry) => entry.url === activeNode.url)
+
+  const next = index >= 0 && index < allEntries.length - 1 ? allEntries[index + 1] : undefined
+  const previous = index > 0 ? allEntries[index - 1] : undefined
+
+  return { next, previous }
 }

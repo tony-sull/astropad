@@ -1,14 +1,1 @@
----
-import Layout from '../layouts/Page.astro'
-import type { Page } from '../utils/navigation.js'
-
-const page = await Astro.glob<Partial<Page>>('../content/pages/**/*.mdx').then((pages) =>
-  pages.find(({ url }) => url === '')
-)
-
-if (!page) {
-  throw new Error('homepage not found!')
-}
----
-
-<Layout page={page} />
+<meta http-equiv="refresh" content="0;url=/getting-started" />

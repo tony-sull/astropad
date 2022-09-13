@@ -2,8 +2,9 @@
 import NavigationItem from './NavigationItem.astro'
 import { findNavigationEntries } from '../utils/navigation.js'
 import type { Page } from '../utils/navigation.js'
+import type { RequireSome } from '../utils/types'
 
-export interface Props extends astroHTML.JSX.HTMLAttributes {}
+export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> { }
 
 const { ...attrs } = Astro.props
 
