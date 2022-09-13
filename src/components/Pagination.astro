@@ -2,6 +2,7 @@
 import { findPaginationEntries } from '../utils/navigation.js'
 import type { Page, PageFrontmatter } from '../utils/navigation.js'
 import type { RequireSome } from '../utils/types.js'
+import Icon from 'astro-icon'
 
 export interface Props extends RequireSome<astroHTML.JSX.HTMLAttributes, 'aria-label'> {
   page: Page
@@ -22,14 +23,14 @@ const { next, previous } = findPaginationEntries(allPages, page)
   {
     previous && (
       <a class="prev" href={previous.url}>
-        {previous.title}
+        ← {previous.title}
       </a>
     )
   }
   {
     next && (
       <a class="next" href={next.url}>
-        {next.title}
+        {next.title} →
       </a>
     )
   }
@@ -41,7 +42,12 @@ const { next, previous } = findPaginationEntries(allPages, page)
     grid-template-columns: auto 1fr auto;
   }
 
+  a {
+    display: flex;
+    align-items: center;
+  }
+
   .next {
-    grid-column: ;
+    grid-column: -1;
   }
 </style>
