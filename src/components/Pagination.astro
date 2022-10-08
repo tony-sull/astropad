@@ -1,0 +1,67 @@
+---
+import { Pagination } from 'astro-navigation'
+import type { PageFrontmatter } from 'astro-navigation'
+
+export interface Props extends astroHTML.JSX.HTMLAttributes { }
+
+const { ...attrs } = Astro.props
+---
+
+<Pagination aria-label='Pagination' {...attrs} />
+
+<style>
+    [aria-label=Pagination] {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'prev next';
+        padding-block-start: var(--gap-xl);
+    }
+
+    [aria-label=Pagination] :global(a) {
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        padding-block-start: var(--gap);
+        font-size: var(--text-lg);
+    }
+
+    [aria-label=Pagination] :global(a:is(:hover, :focus-within)) {
+        text-decoration: underline;
+        color: var(--color-secondary);
+    }
+
+    [aria-label=Pagination] :global(a[data-prev]) {
+        grid-area: prev;
+    }
+
+    [aria-label=Pagination] :global(a[data-next]) {
+        grid-area: next;
+        text-align: end;
+    }
+
+    [aria-label=Pagination] :global(a[data-prev]::before) {
+        content: '‹\00A0\00A0';
+        font-size: 1.25em;
+    }
+
+    [aria-label=Pagination] :global(a[data-prev]::after) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: 'Previous Page';
+        font-size: var(--text-sm);
+    }
+
+    [aria-label=Pagination] :global(a[data-next]::after) {
+        content: '\00A0\00A0›';
+        font-size: 1.25em;
+    }
+
+    [aria-label=Pagination] :global(a[data-next]::before) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: 'Next Page';
+        font-size: var(--text-sm);
+    }
+</style>

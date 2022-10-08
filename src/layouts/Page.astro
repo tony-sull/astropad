@@ -5,7 +5,8 @@ import type { Props as LayoutProps } from './Base.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
 import Header from '../components/Header.astro'
-import Navigation from '../components/Navigation.astro'
+import Pagination from '../components/Pagination.astro'
+import Sidebar from '../components/Sidebar.astro'
 
 export interface Props extends MDXInstance<LayoutProps> {}
 
@@ -13,7 +14,7 @@ const { ...layout } = Astro.props.frontmatter
 ---
 
 <Layout {...layout}>
-  <Navigation id="sidebar" />
+  <Sidebar id="sidebar" />
 
   <main>
     <Header />
@@ -24,6 +25,8 @@ const { ...layout } = Astro.props.frontmatter
       <h1>{layout.title}</h1>
 
       <slot />
+
+      <Pagination />
 
       <Footer />
     </div>

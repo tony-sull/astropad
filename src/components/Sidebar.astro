@@ -1,0 +1,43 @@
+---
+import Navigation from 'astro-navigation'
+
+export interface Props extends astroHTML.JSX.HTMLAttributes { }
+
+const attrs = Astro.props
+---
+
+<nav {...attrs}>
+    <Navigation as="ol" />
+</nav>
+
+<style>
+  nav :global(ol) {
+    counter-reset: section;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--gap);
+  }
+
+  nav :global(ol li) {
+    counter-increment: section;
+  }
+
+  nav :global(ol li::marker) {
+    content: counters(section, '.') '. ';
+    font-weight: 600;
+  }
+
+  nav :global(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  nav :global(a:is(:hover, :focus-within)) {
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+
+  nav :global(a + ol) {
+    padding-block-start: var(--gap);
+  }
+</style>
