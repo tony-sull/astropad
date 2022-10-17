@@ -1,5 +1,5 @@
 ---
-export interface AttributeProps {
+export interface AttributeProps extends astroHTML.JSX.HTMLAttributes {
   target?: string
   storageKey?: string
   attribute: string
@@ -7,17 +7,18 @@ export interface AttributeProps {
   off?: string
 }
 
-export interface ClassProps {
+export interface ClassProps extends astroHTML.JSX.IntrinsicAttributes {
   target?: string
   classname: string
 }
 
 export type Props = AttributeProps | ClassProps
 
-const { target, storageKey, attribute, on, off, classname } = Astro.props
+const { target, storageKey, attribute, on, off, classname, ...attrs } = Astro.props
 ---
 
 <click-toggle
+  {...attrs}
   data-target={target}
   data-storage={storageKey}
   data-attr={attribute}

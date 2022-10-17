@@ -3,12 +3,15 @@ import ClickToggle from './ClickToggle.astro'
 import IconButton from './IconButton.astro'
 ---
 
-<ClickToggle target=":root" attribute="data-menu-open">
-  <IconButton name="heroicons-solid:menu" label="Toggle navigation menu" />
+<ClickToggle target=":root" attribute="data-menu-open" id="menu-toggle">
+  <IconButton
+    name="heroicons-solid:menu"
+    label="Toggle navigation menu"
+  />
 </ClickToggle>
 
 <style is:global>
-  :root:not([data-menu-open]) menu-toggle {
+  :root:not([data-menu-open]) #menu-toggle {
     display: none;
   }
 </style>

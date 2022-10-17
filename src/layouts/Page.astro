@@ -101,8 +101,7 @@ const { ...layout } = Astro.props.frontmatter
     height: auto;
   }
 
-  :root[data-menu-open='false'] #sidebar,
-  :root:not([data-menu-open]) #sidebar {
+  :root[data-menu-open='false'] #sidebar {
     transform: translate3d(-50%, 0, 0);
   }
 
