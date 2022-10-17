@@ -70,7 +70,7 @@
   --color-neutral-900: #f9fafb;
 }
 
-/* dark theme via native prefers-color-scheme */
+/* dark theme via native prefers-color-scheme
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --color-primary: #002244;
@@ -85,7 +85,7 @@
     --color-neutral-700: #e5e7eb;
     --color-neutral-800: #f3f4f6;
   }
-}
+}*/
 
 :where(.sr-only) {
   border: 0;
